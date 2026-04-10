@@ -12,5 +12,5 @@ class HomeEntity extends Equatable {
   });
 
   @override
-  List<Object?> get props => [photographer, imageUrl, id];
+  List<Object?> get props => [id, photographer, imageUrl];
 }

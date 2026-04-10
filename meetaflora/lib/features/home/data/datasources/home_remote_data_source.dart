@@ -27,7 +27,11 @@ class HomeRemoteDataSource implements BaseHomeRemoteDataSource {
     try {
       final response = await _dio.get(
         ApiEndpoints.searchPhotos,
-        queryParameters: {'query': query, 'per_page': perPage, 'page': page},
+        queryParameters: {
+          'query': query,
+          'per_page': perPage,
+          'page': page,
+        },
       );
 
       final List photos = response.data['photos'] ?? [];
@@ -35,7 +39,6 @@ class HomeRemoteDataSource implements BaseHomeRemoteDataSource {
       return photos
           .map((photo) => HomeModel.fromJson(Map<String, dynamic>.from(photo)))
           .toList();
-
     } catch (error) {
       throw FailureExceptions.getException(error);
     }

@@ -8,7 +8,7 @@ class HomeCubit extends Cubit<HomeState> {
   HomeCubit(this._homeUseCase) : super(HomeInitialState());
 
   Future<void> getHomeMethod() async {
-    final result = await _homeUseCase.getHome();
+    final result = await _homeUseCase.searchPlantImages(query: 'query');
     result.when(
       (success) {
         //here is when success result
