@@ -2,18 +2,8 @@
 class ApiEndpoints {
   ApiEndpoints._();
 
-  static const String baseUrl = 'https://api.example.com';
+// api key fo pexels -> w5s7I3mjUE001q7vvP3VZas8hnw5C5QXswcvR6oDFx7Pgia0Pl3V2aj2
+  static const String pexelsBaseUrl = 'https://api.pexels.com/v1';
 
-  // Auth
-  static const String login = '/auth/login';
-  static const String register = '/auth/register';
-  static const String logout = '/auth/logout';
-  static const String refreshToken = '/auth/refresh';
-
-  // User
-  static const String profile = '/user/profile';
-
-  // Common
-  static String userById(String id) => '/users/$id';
 }
 
