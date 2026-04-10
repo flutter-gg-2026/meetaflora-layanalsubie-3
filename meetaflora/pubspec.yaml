@@ -7,6 +7,7 @@ environment:
   sdk: ^3.11.4
 
 dependencies:
+  any_image_view: ^2.1.0
   bloc: ^9.2.0
   cupertino_icons: ^1.0.9
   device_info_plus: ^11.3.0
@@ -48,8 +49,5 @@ flutter_launcher_icons:
 
 flutter:
   assets:
-    - assets/icons/
-    - assets/images/
-    - assets/translations/
-    - .env
+    - assets/images/flora-logo-appbar.png
   uses-material-design: true
