@@ -1,5 +1,6 @@
 import 'package:any_image_view/any_image_view.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:meetaflora/features/home/domain/entities/home_entity.dart';
 import 'package:sizer/sizer.dart';
 
@@ -25,34 +26,30 @@ class HomeGridViewWidget extends StatelessWidget {
         final plant = plants[index];
 
         return Container(
+          padding: EdgeInsets.all(15),
           decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(16),
+            color: Color(0xffFFC0E7),
+            borderRadius: BorderRadius.circular(24),
             boxShadow: kElevationToShadow[3],
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
+                flex: 3,
                 child: AnyImageView(
-                  borderRadius: BorderRadius.vertical(
-                    top: Radius.circular(16),
-                  ),
+                  borderRadius: BorderRadius.circular(10),
                   imagePath: plant.imageUrl,
                   width: 100.sw,
+                  height: 100.h,
                   fit: .fitWidth,
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.all(10),
-                child: Text(
-                  plant.alt,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
-                  ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
+              Gap(15),
+              Text(
+                plant.alt,
+                style: TextStyle(
+                  fontSize: 14,
                 ),
               ),
             ],
