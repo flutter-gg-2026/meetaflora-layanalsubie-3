@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:meetaflora/core/di/configure_dependencies.config.dart';
 import 'package:injectable/injectable.dart';
+import 'package:meetaflora/features/home/di/home_di.dart';
 
 @InjectableInit(
   initializerName: 'init', 
@@ -12,4 +13,5 @@ import 'package:injectable/injectable.dart';
 Future<void> configureDependencies() async {
   final getIt = GetIt.instance;
   getIt.init();
+    configureHome(getIt);
 }
