@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$HomeModel {
 
- int get id; String get photographer; String get imageUrl;
+ int get id; String get photographer;@JsonKey(name: 'src', fromJson: _imageUrlFromJson) String get imageUrl;
 /// Create a copy of HomeModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $HomeModelCopyWith<$Res>  {
   factory $HomeModelCopyWith(HomeModel value, $Res Function(HomeModel) _then) = _$HomeModelCopyWithImpl;
 @useResult
 $Res call({
- int id, String photographer, String imageUrl
+ int id, String photographer,@JsonKey(name: 'src', fromJson: _imageUrlFromJson) String imageUrl
 });
 
 
@@ -155,7 +155,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String photographer,  String imageUrl)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String photographer, @JsonKey(name: 'src', fromJson: _imageUrlFromJson)  String imageUrl)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _HomeModel() when $default != null:
 return $default(_that.id,_that.photographer,_that.imageUrl);case _:
@@ -176,7 +176,7 @@ return $default(_that.id,_that.photographer,_that.imageUrl);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String photographer,  String imageUrl)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String photographer, @JsonKey(name: 'src', fromJson: _imageUrlFromJson)  String imageUrl)  $default,) {final _that = this;
 switch (_that) {
 case _HomeModel():
 return $default(_that.id,_that.photographer,_that.imageUrl);case _:
@@ -196,7 +196,7 @@ return $default(_that.id,_that.photographer,_that.imageUrl);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String photographer,  String imageUrl)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String photographer, @JsonKey(name: 'src', fromJson: _imageUrlFromJson)  String imageUrl)?  $default,) {final _that = this;
 switch (_that) {
 case _HomeModel() when $default != null:
 return $default(_that.id,_that.photographer,_that.imageUrl);case _:
@@ -211,12 +211,12 @@ return $default(_that.id,_that.photographer,_that.imageUrl);case _:
 @JsonSerializable()
 
 class _HomeModel implements HomeModel {
-  const _HomeModel({required this.id, required this.photographer, required this.imageUrl});
+  const _HomeModel({required this.id, required this.photographer, @JsonKey(name: 'src', fromJson: _imageUrlFromJson) required this.imageUrl});
   factory _HomeModel.fromJson(Map<String, dynamic> json) => _$HomeModelFromJson(json);
 
 @override final  int id;
 @override final  String photographer;
-@override final  String imageUrl;
+@override@JsonKey(name: 'src', fromJson: _imageUrlFromJson) final  String imageUrl;
 
 /// Create a copy of HomeModel
 /// with the given fields replaced by the non-null parameter values.
@@ -251,7 +251,7 @@ abstract mixin class _$HomeModelCopyWith<$Res> implements $HomeModelCopyWith<$Re
   factory _$HomeModelCopyWith(_HomeModel value, $Res Function(_HomeModel) _then) = __$HomeModelCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String photographer, String imageUrl
+ int id, String photographer,@JsonKey(name: 'src', fromJson: _imageUrlFromJson) String imageUrl
 });
 
 

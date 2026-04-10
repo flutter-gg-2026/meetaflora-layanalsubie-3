@@ -9,11 +9,16 @@ abstract class HomeModel with _$HomeModel {
   const factory HomeModel({
     required int id,
     required String photographer,
-    required String imageUrl,
+    @JsonKey(name: 'src', fromJson: _imageUrlFromJson) required String imageUrl,
   }) = _HomeModel;
 
-  factory HomeModel.fromJson(Map<String, Object?> json) =>
+  factory HomeModel.fromJson(Map<String, dynamic> json) =>
       _$HomeModelFromJson(json);
+}
+
+String _imageUrlFromJson(dynamic json) {
+  final map = json as Map<String, dynamic>? ?? {};
+  return (map['large2x'] ?? map['large'] ?? map['medium'] ?? '') as String;
 }
 
 extension HomeModelMapper on HomeModel {
