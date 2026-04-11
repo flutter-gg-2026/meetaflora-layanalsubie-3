@@ -18,6 +18,8 @@
 	<string>meetaflora</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>We need access to your gallery to identify plants.</string>
 	<key>CFBundleShortVersionString</key>
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>

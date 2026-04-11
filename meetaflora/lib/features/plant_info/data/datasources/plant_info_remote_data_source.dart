@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -21,51 +22,59 @@ class PlantInfoRemoteDataSource implements BasePlantInfoRemoteDataSource {
   PlantInfoRemoteDataSource(this._dio);
 
   @override
-  Future<PlantInfoModel> getPlantDetails({
-    required String plantName,
-    required String imageUrl,
-  }) async {
-    try {
-      final key = dotenv.env['gemini_key']?.trim() ?? '';
+Future<PlantInfoModel> getPlantDetails({
+  required String plantName,
+  required String imageUrl,
+}) async {
+  try {
+    final key = dotenv.env['gemini_key']?.trim() ?? '';
 
-      final url =
-          "https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent";
+    final url = "Your cURL";
 
-      final response = await _dio.post(
-        url,
-        options: Options(
-          headers: {
-            'Content-Type': 'application/json',
-            'x-goog-api-key': key, 
-          },
-        ),
-        data: {
-          "contents": [
-            {
-              "parts": [
-                {
-                  "text":
-                      "Identify the plant '$plantName'. Return ONLY a JSON object with keys: plantName, description, careTips, funFact.",
-                },
-              ],
-            },
-          ],
-          "generationConfig": {"response_mime_type": "application/json"},
+    Map<String, dynamic> imagePart;
+    if (imageUrl.startsWith('http')) {
+      imagePart = {"text": "Identify this plant from URL: $imageUrl"};
+    } else {
+      final bytes = await File(imageUrl).readAsBytes();
+      imagePart = {
+        "inline_data": {
+          "mime_type": "image/jpeg",
+          "data": base64Encode(bytes),
         },
-      );
-
-      if (response.data['candidates'] != null) {
-        final String outputText =
-            response.data['candidates'][0]['content']['parts'][0]['text'];
-        final Map<String, dynamic> jsonMap = jsonDecode(outputText.trim());
-        return PlantInfoModel.fromJson(jsonMap);
-      }
-      throw Exception("No data found");
-    } catch (error) {
-      if (error is DioException) {
-        log("Gemini Full Error: ${error.response?.data}");
-      }
-      throw FailureExceptions.getException(error);
+      };
     }
+
+    final response = await _dio.post(
+      url,
+      data: {
+        "contents": [
+          {
+            "parts": [
+              {
+                "text": "Analyze the plant: $plantName. Return botanical info strictly as a JSON object with these keys: plantName, description, careTips, funFact."
+              },
+              imagePart,
+            ]
+          }
+        ],
+      },
+    );
+
+    if (response.data['candidates'] != null) {
+      String outputText = response.data['candidates'][0]['content']['parts'][0]['text'];
+      
+      outputText = outputText.replaceAll('```json', '').replaceAll('```', '').trim();
+      
+      final Map<String, dynamic> jsonMap = jsonDecode(outputText);
+      return PlantInfoModel.fromJson(jsonMap);
+    }
+    throw Exception("No data found");
+
+  } catch (error) {
+    if (error is DioException) {
+      log("REASON FROM SERVER: ${error.response?.data}");
+    }
+    throw FailureExceptions.getException(error);
   }
+}
 }
