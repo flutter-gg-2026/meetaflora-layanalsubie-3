@@ -16,11 +16,11 @@ class HomeGridViewWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GridView.builder(
       itemCount: plants.length,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         crossAxisSpacing: 12,
         mainAxisSpacing: 12,
-        childAspectRatio: 0.85,
+        childAspectRatio: 0.80,
       ),
       itemBuilder: (context, index) {
         final plant = plants[index];
@@ -28,7 +28,7 @@ class HomeGridViewWidget extends StatelessWidget {
         return Container(
           padding: EdgeInsets.all(15),
           decoration: BoxDecoration(
-            color: Color(0xffFFC0E7),
+            color: Color.fromARGB(255, 255, 210, 238),
             borderRadius: BorderRadius.circular(24),
             boxShadow: kElevationToShadow[3],
           ),
@@ -36,13 +36,11 @@ class HomeGridViewWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
-                flex: 3,
                 child: AnyImageView(
                   borderRadius: BorderRadius.circular(10),
                   imagePath: plant.imageUrl,
                   width: 100.sw,
-                  height: 100.h,
-                  fit: .fitWidth,
+                  fit: .cover,
                 ),
               ),
               Gap(15),

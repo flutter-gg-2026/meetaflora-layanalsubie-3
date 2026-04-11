@@ -1,6 +1,7 @@
 import 'package:any_image_view/any_image_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:meetaflora/core/constants/app_colors.dart';
 import 'package:meetaflora/core/extensions/font_extensions.dart';
@@ -11,10 +12,20 @@ import 'package:meetaflora/features/home/presentation/widgets/home_appbar_widget
 import 'package:meetaflora/features/home/presentation/widgets/home_gridview_widget.dart';
 import 'package:meetaflora/features/home/presentation/widgets/home_search_widget.dart';
 
-class HomeFeatureScreen extends StatelessWidget {
+class HomeFeatureScreen extends HookWidget {
   const HomeFeatureScreen({super.key});
   @override
   Widget build(BuildContext context) {
+    final searchController = useTextEditingController();
+    final cubit = context.read<HomeCubit>();
+
+    useEffect(() {
+      Future.microtask(() {
+        cubit.searchPlantImages(query: 'rose');
+      });
+      return null;
+    }, []);
+
     return Scaffold(
       appBar: AppBar(
         actionsPadding: EdgeInsets.all(16),
@@ -36,7 +47,14 @@ class HomeFeatureScreen extends StatelessWidget {
             if (state is HomeSuccessState) {
               return Column(
                 children: [
-                  HomeSearchWidget(),
+                  HomeSearchWidget(
+                    controller: searchController,
+                    onSubmitted: (String value) {
+                      if (value.trim().isNotEmpty) {
+                        cubit.searchPlantImages(query: value.trim());
+                      }
+                    },
+                  ),
                   Gap(10),
                   Expanded(child: HomeGridViewWidget(plants: state.plants)),
                 ],

@@ -10,24 +10,19 @@ abstract class HomeModel with _$HomeModel {
     required int id,
     required String photographer,
     required String alt,
-    @JsonKey(name: 'src', fromJson: _imageUrlFromJson) required String imageUrl,
+    required Map<String, String> src,
   }) = _HomeModel;
 
   factory HomeModel.fromJson(Map<String, dynamic> json) =>
       _$HomeModelFromJson(json);
 }
-
-String _imageUrlFromJson(dynamic json) {
-  final map = json as Map<String, dynamic>? ?? {};
-  return (map['large2x'] ?? map['large'] ?? map['medium'] ?? '') as String;
-}
-
 extension HomeModelMapper on HomeModel {
   HomeEntity toEntity() {
     return HomeEntity(
       id: id,
       photographer: photographer,
-      imageUrl: imageUrl, alt: alt,
+      imageUrl: src['original'] ?? src['large2x'] ?? '',
+      alt: alt,
     );
   }
 }

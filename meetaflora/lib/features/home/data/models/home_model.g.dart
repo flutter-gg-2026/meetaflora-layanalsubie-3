@@ -10,7 +10,7 @@ _HomeModel _$HomeModelFromJson(Map<String, dynamic> json) => _HomeModel(
   id: (json['id'] as num).toInt(),
   photographer: json['photographer'] as String,
   alt: json['alt'] as String,
-  imageUrl: _imageUrlFromJson(json['src']),
+  src: Map<String, String>.from(json['src'] as Map),
 );
 
 Map<String, dynamic> _$HomeModelToJson(_HomeModel instance) =>
@@ -18,5 +18,5 @@ Map<String, dynamic> _$HomeModelToJson(_HomeModel instance) =>
       'id': instance.id,
       'photographer': instance.photographer,
       'alt': instance.alt,
-      'src': instance.imageUrl,
+      'src': instance.src,
     };

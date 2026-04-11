@@ -2,7 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:meetaflora/core/constants/app_colors.dart';
 
 class HomeSearchWidget extends StatelessWidget {
-  const HomeSearchWidget({super.key});
+  final TextEditingController controller;
+  final ValueChanged<String> onSubmitted;
+  const HomeSearchWidget({
+    super.key,
+    required this.controller,
+    required this.onSubmitted,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -10,10 +16,11 @@ class HomeSearchWidget extends StatelessWidget {
       margin: EdgeInsets.only(bottom: 20),
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(15)),
       child: TextField(
+        controller: controller,
         onTapOutside: (event) {
           FocusManager.instance.primaryFocus?.unfocus();
         },
-        onChanged: (value) {},
+        onSubmitted: onSubmitted,
         decoration: InputDecoration(
           hintText: 'search for a plant ...',
           hintStyle: TextStyle(color: AppColors.textSecondary),

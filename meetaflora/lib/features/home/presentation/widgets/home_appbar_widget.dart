@@ -20,15 +20,6 @@ class HomeAppbarWidget extends StatelessWidget {
             ],
           ),
         ),
-        PopupMenuItem(
-          child: Row(
-            children: [
-              Icon(Icons.camera_alt, color: Color(0xff165D33)),
-              Gap(10),
-              Text('Take a photo'),
-            ],
-          ),
-        ),
       ],
       child: Container(
         height: 50,

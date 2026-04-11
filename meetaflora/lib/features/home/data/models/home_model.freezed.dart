@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$HomeModel {
 
- int get id; String get photographer; String get alt;@JsonKey(name: 'src', fromJson: _imageUrlFromJson) String get imageUrl;
+ int get id; String get photographer; String get alt; Map<String, String> get src;
 /// Create a copy of HomeModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $HomeModelCopyWith<HomeModel> get copyWith => _$HomeModelCopyWithImpl<HomeModel>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is HomeModel&&(identical(other.id, id) || other.id == id)&&(identical(other.photographer, photographer) || other.photographer == photographer)&&(identical(other.alt, alt) || other.alt == alt)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is HomeModel&&(identical(other.id, id) || other.id == id)&&(identical(other.photographer, photographer) || other.photographer == photographer)&&(identical(other.alt, alt) || other.alt == alt)&&const DeepCollectionEquality().equals(other.src, src));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,photographer,alt,imageUrl);
+int get hashCode => Object.hash(runtimeType,id,photographer,alt,const DeepCollectionEquality().hash(src));
 
 @override
 String toString() {
-  return 'HomeModel(id: $id, photographer: $photographer, alt: $alt, imageUrl: $imageUrl)';
+  return 'HomeModel(id: $id, photographer: $photographer, alt: $alt, src: $src)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $HomeModelCopyWith<$Res>  {
   factory $HomeModelCopyWith(HomeModel value, $Res Function(HomeModel) _then) = _$HomeModelCopyWithImpl;
 @useResult
 $Res call({
- int id, String photographer, String alt,@JsonKey(name: 'src', fromJson: _imageUrlFromJson) String imageUrl
+ int id, String photographer, String alt, Map<String, String> src
 });
 
 
@@ -65,13 +65,13 @@ class _$HomeModelCopyWithImpl<$Res>
 
 /// Create a copy of HomeModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? photographer = null,Object? alt = null,Object? imageUrl = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? photographer = null,Object? alt = null,Object? src = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,photographer: null == photographer ? _self.photographer : photographer // ignore: cast_nullable_to_non_nullable
 as String,alt: null == alt ? _self.alt : alt // ignore: cast_nullable_to_non_nullable
-as String,imageUrl: null == imageUrl ? _self.imageUrl : imageUrl // ignore: cast_nullable_to_non_nullable
-as String,
+as String,src: null == src ? _self.src : src // ignore: cast_nullable_to_non_nullable
+as Map<String, String>,
   ));
 }
 
@@ -156,10 +156,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String photographer,  String alt, @JsonKey(name: 'src', fromJson: _imageUrlFromJson)  String imageUrl)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String photographer,  String alt,  Map<String, String> src)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _HomeModel() when $default != null:
-return $default(_that.id,_that.photographer,_that.alt,_that.imageUrl);case _:
+return $default(_that.id,_that.photographer,_that.alt,_that.src);case _:
   return orElse();
 
 }
@@ -177,10 +177,10 @@ return $default(_that.id,_that.photographer,_that.alt,_that.imageUrl);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String photographer,  String alt, @JsonKey(name: 'src', fromJson: _imageUrlFromJson)  String imageUrl)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String photographer,  String alt,  Map<String, String> src)  $default,) {final _that = this;
 switch (_that) {
 case _HomeModel():
-return $default(_that.id,_that.photographer,_that.alt,_that.imageUrl);case _:
+return $default(_that.id,_that.photographer,_that.alt,_that.src);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -197,10 +197,10 @@ return $default(_that.id,_that.photographer,_that.alt,_that.imageUrl);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String photographer,  String alt, @JsonKey(name: 'src', fromJson: _imageUrlFromJson)  String imageUrl)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String photographer,  String alt,  Map<String, String> src)?  $default,) {final _that = this;
 switch (_that) {
 case _HomeModel() when $default != null:
-return $default(_that.id,_that.photographer,_that.alt,_that.imageUrl);case _:
+return $default(_that.id,_that.photographer,_that.alt,_that.src);case _:
   return null;
 
 }
@@ -212,13 +212,19 @@ return $default(_that.id,_that.photographer,_that.alt,_that.imageUrl);case _:
 @JsonSerializable()
 
 class _HomeModel implements HomeModel {
-  const _HomeModel({required this.id, required this.photographer, required this.alt, @JsonKey(name: 'src', fromJson: _imageUrlFromJson) required this.imageUrl});
+  const _HomeModel({required this.id, required this.photographer, required this.alt, required final  Map<String, String> src}): _src = src;
   factory _HomeModel.fromJson(Map<String, dynamic> json) => _$HomeModelFromJson(json);
 
 @override final  int id;
 @override final  String photographer;
 @override final  String alt;
-@override@JsonKey(name: 'src', fromJson: _imageUrlFromJson) final  String imageUrl;
+ final  Map<String, String> _src;
+@override Map<String, String> get src {
+  if (_src is EqualUnmodifiableMapView) return _src;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(_src);
+}
+
 
 /// Create a copy of HomeModel
 /// with the given fields replaced by the non-null parameter values.
@@ -233,16 +239,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _HomeModel&&(identical(other.id, id) || other.id == id)&&(identical(other.photographer, photographer) || other.photographer == photographer)&&(identical(other.alt, alt) || other.alt == alt)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _HomeModel&&(identical(other.id, id) || other.id == id)&&(identical(other.photographer, photographer) || other.photographer == photographer)&&(identical(other.alt, alt) || other.alt == alt)&&const DeepCollectionEquality().equals(other._src, _src));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,photographer,alt,imageUrl);
+int get hashCode => Object.hash(runtimeType,id,photographer,alt,const DeepCollectionEquality().hash(_src));
 
 @override
 String toString() {
-  return 'HomeModel(id: $id, photographer: $photographer, alt: $alt, imageUrl: $imageUrl)';
+  return 'HomeModel(id: $id, photographer: $photographer, alt: $alt, src: $src)';
 }
 
 
@@ -253,7 +259,7 @@ abstract mixin class _$HomeModelCopyWith<$Res> implements $HomeModelCopyWith<$Re
   factory _$HomeModelCopyWith(_HomeModel value, $Res Function(_HomeModel) _then) = __$HomeModelCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String photographer, String alt,@JsonKey(name: 'src', fromJson: _imageUrlFromJson) String imageUrl
+ int id, String photographer, String alt, Map<String, String> src
 });
 
 
@@ -270,13 +276,13 @@ class __$HomeModelCopyWithImpl<$Res>
 
 /// Create a copy of HomeModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? photographer = null,Object? alt = null,Object? imageUrl = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? photographer = null,Object? alt = null,Object? src = null,}) {
   return _then(_HomeModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,photographer: null == photographer ? _self.photographer : photographer // ignore: cast_nullable_to_non_nullable
 as String,alt: null == alt ? _self.alt : alt // ignore: cast_nullable_to_non_nullable
-as String,imageUrl: null == imageUrl ? _self.imageUrl : imageUrl // ignore: cast_nullable_to_non_nullable
-as String,
+as String,src: null == src ? _self._src : src // ignore: cast_nullable_to_non_nullable
+as Map<String, String>,
   ));
 }
 

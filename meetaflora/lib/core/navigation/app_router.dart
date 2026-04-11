@@ -21,10 +21,8 @@ class AppRouter {
       GoRoute(
         path: Routes.home,
         builder: (context, state) => BlocProvider(
-          create: (context) =>
-              HomeCubit(GetIt.I.get<HomeUseCase>())
-                ..searchPlantImages(query: 'rose plant'),
-          child: const HomeFeatureScreen(),
+          create: (context) => HomeCubit(GetIt.I.get<HomeUseCase>()),
+          child: HomeFeatureScreen(),
         ),
       ),
     ],
