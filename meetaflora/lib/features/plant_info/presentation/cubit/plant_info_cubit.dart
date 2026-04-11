@@ -8,7 +8,7 @@ class PlantInfoCubit extends Cubit<PlantInfoState> {
   PlantInfoCubit(this._plantInfoUseCase) : super(PlantInfoInitialState());
 
   Future<void> getPlantInfoMethod() async {
-    final result = await _plantInfoUseCase.getPlantInfo();
+    final result = await _plantInfoUseCase.getPlantInfo(plantName: 'plantName', imageUrl: 'imageUrl');
     result.when(
       (success) {
         //here is when success result
