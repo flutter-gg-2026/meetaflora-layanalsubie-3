@@ -1,8 +1,9 @@
 import 'dart:convert';
+import 'dart:developer';
 
+import 'package:dio/dio.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:injectable/injectable.dart';
-import 'package:meetaflora/core/network/api_endpoints.dart';
-import 'package:meetaflora/core/network/openai_dio_client.dart';
 import 'package:meetaflora/features/plant_info/data/models/plant_info_model.dart';
 import 'package:meetaflora/core/errors/network_exceptions.dart';
 
@@ -15,7 +16,7 @@ abstract class BasePlantInfoRemoteDataSource {
 
 @LazySingleton(as: BasePlantInfoRemoteDataSource)
 class PlantInfoRemoteDataSource implements BasePlantInfoRemoteDataSource {
-  final OpenAiDioClient _dio;
+  final Dio _dio;
 
   PlantInfoRemoteDataSource(this._dio);
 
@@ -25,49 +26,45 @@ class PlantInfoRemoteDataSource implements BasePlantInfoRemoteDataSource {
     required String imageUrl,
   }) async {
     try {
+      final key = dotenv.env['gemini_key']?.trim() ?? '';
+
+      final url =
+          "https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent";
+
       final response = await _dio.post(
-        ApiEndpoints.responses,
+        url,
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+            'x-goog-api-key': key, 
+          },
+        ),
         data: {
-          "model": "gpt-4.1-mini",
-          "input": [
+          "contents": [
             {
-              "role": "user",
-              "content": [
+              "parts": [
                 {
-                  "type": "input_text",
                   "text":
-                      "You are helping inside a plant app. Return concise botanical app content for the plant named '$plantName'. Use the image only as extra context. Respond strictly in the required JSON schema. Keep each field short and friendly.",
+                      "Identify the plant '$plantName'. Return ONLY a JSON object with keys: plantName, description, careTips, funFact.",
                 },
-                {"type": "input_image", "image_url": imageUrl},
               ],
             },
           ],
-          "text": {
-            "format": {
-              "type": "json_schema",
-              "name": "plant_details",
-              "strict": true,
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "plantName": {"type": "string"},
-                  "description": {"type": "string"},
-                  "careTips": {"type": "string"},
-                  "funFact": {"type": "string"},
-                },
-                "required": ["plantName", "description", "careTips", "funFact"],
-                "additionalProperties": false,
-              },
-            },
-          },
+          "generationConfig": {"response_mime_type": "application/json"},
         },
       );
 
-      final String outputText = response.data['output_text'] ?? '{}';
-      final Map<String, dynamic> jsonMap = jsonDecode(outputText);
-
-      return PlantInfoModel.fromJson(jsonMap);
+      if (response.data['candidates'] != null) {
+        final String outputText =
+            response.data['candidates'][0]['content']['parts'][0]['text'];
+        final Map<String, dynamic> jsonMap = jsonDecode(outputText.trim());
+        return PlantInfoModel.fromJson(jsonMap);
+      }
+      throw Exception("No data found");
     } catch (error) {
+      if (error is DioException) {
+        log("Gemini Full Error: ${error.response?.data}");
+      }
       throw FailureExceptions.getException(error);
     }
   }

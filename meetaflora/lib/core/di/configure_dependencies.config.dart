@@ -9,6 +9,7 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:dio/dio.dart' as _i361;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart' as _i558;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:get_storage/get_storage.dart' as _i792;
@@ -16,7 +17,7 @@ import 'package:injectable/injectable.dart' as _i526;
 import 'package:supabase_flutter/supabase_flutter.dart' as _i454;
 
 import '../network/dio_client.dart' as _i667;
-import '../network/openai_dio_client.dart' as _i472;
+import '../network/gemini_dio_client.dart' as _i369;
 import '../services/local_keys_service.dart' as _i945;
 import 'third_part.dart' as _i423;
 
@@ -28,6 +29,7 @@ extension GetItInjectableX on _i174.GetIt {
   }) {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final thirdPartyConfig = _$ThirdPartyConfig();
+    gh.lazySingleton<_i361.Dio>(() => thirdPartyConfig.dio);
     gh.lazySingleton<_i792.GetStorage>(() => thirdPartyConfig.storage);
     gh.lazySingleton<_i454.SupabaseClient>(
       () => thirdPartyConfig.supabaseClient,
@@ -36,7 +38,7 @@ extension GetItInjectableX on _i174.GetIt {
       () => thirdPartyConfig.flutterSecureStorage,
     );
     gh.lazySingleton<_i667.DioClient>(() => _i667.DioClient());
-    gh.lazySingleton<_i472.OpenAiDioClient>(() => _i472.OpenAiDioClient());
+    gh.lazySingleton<_i369.GeminiClient>(() => _i369.GeminiClient());
     gh.singleton<_i945.LocalKeysService>(() => _i945.LocalKeysService());
     return this;
   }
