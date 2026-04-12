@@ -4,6 +4,13 @@
 
 ---
 
+## 📱 App Screenshots
+| Home Screen | Plant Identification |
+| :---: | :---:
+| <img width="250" src="https://github.com/user-attachments/assets/37d32d70-ac41-482c-9d24-dba92a0657c3" /> | <img width="250" src="https://github.com/user-attachments/assets/21ca097f-6263-4a2d-9bc9-6ca396021e8f"/> |
+
+---
+
 ## ✨ Key Features
 * **AI Plant Recognition:** Upload an image from your gallery and let Gemini AI analyze and identify the species.
 * **Flexible Search:** Search for plants by name to retrieve scientific data and fun facts.
