@@ -17,7 +17,6 @@ import 'package:injectable/injectable.dart' as _i526;
 import 'package:supabase_flutter/supabase_flutter.dart' as _i454;
 
 import '../network/dio_client.dart' as _i667;
-import '../network/gemini_dio_client.dart' as _i369;
 import '../services/local_keys_service.dart' as _i945;
 import 'third_part.dart' as _i423;
 
@@ -38,7 +37,6 @@ extension GetItInjectableX on _i174.GetIt {
       () => thirdPartyConfig.flutterSecureStorage,
     );
     gh.lazySingleton<_i667.DioClient>(() => _i667.DioClient());
-    gh.lazySingleton<_i369.GeminiClient>(() => _i369.GeminiClient());
     gh.singleton<_i945.LocalKeysService>(() => _i945.LocalKeysService());
     return this;
   }
