@@ -7,14 +7,16 @@
 ## 📱 App Screenshots
 | Home Screen | Plant Identification |
 | :---: | :---:
-| <img width="250" src="https://github.com/user-attachments/assets/37d32d70-ac41-482c-9d24-dba92a0657c3" /> | <img width="250" src="https://github.com/user-attachments/assets/21ca097f-6263-4a2d-9bc9-6ca396021e8f"/> |
+| <img width="250" src="https://github.com/user-attachments/assets/37d32d70-ac41-482c-9d24-dba92a0657c3" /> | <img width="250" src="https://github.com/user-attachments/assets/ea3df520-1039-41d9-b38a-de07bce1364a" />
+ |
 
 ---
 
 ## 🎥 App Demo
 
 
-https://github.com/user-attachments/assets/132c66d8-73cc-47cc-97e6-6867bed2b011
+https://github.com/user-attachments/assets/4c4d0d23-6527-42ee-89bb-06a56bdbdc4b
+
 
 
 ---
