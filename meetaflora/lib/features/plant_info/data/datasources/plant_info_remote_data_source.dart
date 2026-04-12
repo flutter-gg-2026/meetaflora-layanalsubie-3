@@ -29,7 +29,7 @@ Future<PlantInfoModel> getPlantDetails({
   try {
     final key = dotenv.env['gemini_key']?.trim() ?? '';
 
-    final url = "Your cURL";
+    final url = "Your Key cURL";
 
     Map<String, dynamic> imagePart;
     if (imageUrl.startsWith('http')) {
@@ -78,3 +78,4 @@ Future<PlantInfoModel> getPlantDetails({
   }
 }
 }
+
